@@ -9,7 +9,7 @@ load_dotenv()
 openwheathermap_api_key = os.getenv("OPENWHEATHERMAP_API_KEY")
 tavily_api_key = os.getenv("TAVILY_API_KEY")
 
-permitted_path = r"C:\Users\USERNAME\Obsidians\Agent\mcp-tools\permit_folder"
+permitted_path = Path(__file__).parent / "permit_folder"
 
 tavily_headers = {
     "Content-Type":"application/json",
@@ -37,7 +37,7 @@ def get_wheather(zip_place: str) -> str:
 @mcp.tool()
 def read_file(path: str) -> str:
     """ファイルの中身を見るツール"""
-    path = Path(permitted_path) / path
+    path = permitted_path / path
     if path.resolve().is_relative_to(permitted_path):
         try:
             with open(path, encoding="UTF-8") as f:
